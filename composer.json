@@ -1,0 +1,42 @@
+{
+  "name": "dziki/monolog-sentry-bundle",
+  "type": "symfony-bundle",
+  "description": "Improve logging to Sentry with user, user agent, revision and Symfony version data",
+  "keywords": [
+    "sentry",
+    "logging",
+    "logger",
+    "monolog",
+    "symfony",
+    "bundle"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Michał Mleczko",
+      "email": "michal@mleczko.waw.pl"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "symfony/dependency-injection": "~4.0",
+    "symfony/framework-bundle": "~4.0",
+    "symfony/security": "~4.0",
+    "monolog/monolog": "^1.23"
+  },
+  "suggest": {
+    "donatj/phpuseragentparser": "Replacement for php native 'get_browser()` function, doesn't need providing browsecap file"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7",
+    "friendsofphp/php-cs-fixer": "^2.12"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dziki\\MonologSentryBundle\\": ""
+    }
+  },
+  "autoload-dev": {
+    "psr-4": { "": "Tests/" }
+  }
+}
