@@ -1,5 +1,10 @@
 # Monolog Sentry Bundle
 
+[![Build Status](https://travis-ci.org/mleczakm/monolog-sentry-bundle.svg?branch=master)](https://travis-ci.org/mleczakm/monolog-sentry-bundle)
+[![Code Coverage](https://scrutinizer-ci.com/g/mleczakm/monolog-sentry-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/mleczakm/monolog-sentry-bundle/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mleczakm/monolog-sentry-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mleczakm/monolog-sentry-bundle/?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a441c60e-3cdd-410a-985d-c8abc59a9c1d/mini.png)](https://insight.sensiolabs.com/projects/a441c60e-3cdd-410a-985d-c8abc59a9c1d)
+
 Bundle for appending useful data to log records like username, parsed user-agent header, host name, Symfony version and commit hash.
 
 ## TL;DR
