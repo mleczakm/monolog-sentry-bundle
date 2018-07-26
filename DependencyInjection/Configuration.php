@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('monolog_sentry');
         // @formatter:off
         $rootNode
-           ->children()
+            ->children()
                 ->booleanNode('user_context')
                     ->info('whether to log or not username obtained from TokenStorage')
                     ->defaultTrue()
@@ -28,7 +28,7 @@ class Configuration implements ConfigurationInterface
                     ->arrayPrototype()
                         ->beforeNormalization()
                         ->ifString()
-                        ->then(function ($value) {
+                        ->then(function($value) {
                             return array('value' => $value);
                         })
                     ->end()
