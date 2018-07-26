@@ -27,7 +27,8 @@
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.0 || ^3.4",
-    "friendsofphp/php-cs-fixer": "^2.12"
+    "friendsofphp/php-cs-fixer": "^2.12",
+    "phpunit/phpunit": "^7.2"
   },
   "autoload": {
     "psr-4": {
