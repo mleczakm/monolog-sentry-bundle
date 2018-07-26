@@ -52,25 +52,28 @@ class AppKernel extends Kernel
 ## Configuration
 
 Default configuration looks like that:
+
 ```yaml
 dziki.monolog_sentry_bundle:
     user_context: true # append username from TokenStorage to log
     browser_agent: phpuseragent # parser browser name, version and platform from user agent
 ``` 
-Needs two environment variables to be set: `SERVER_NAME` with desired environment name in Sentry panel and 
-`APP_REVISION` with commit hash. Settings any of this value to `false` will turn off log processors.
+
+You can turn off logging user context and/or parsing browser by setting any of this values to `false`.
 
 ## Custom tags
 
-You can extend it by adding custom tags. For example, for logging Symfony version, environment and server name
-you can modify config to this:
+You can extend amount of logged data by adding custom tags. For example, for logging Symfony version, setting 
+useful [Sentry environment](https://docs.sentry.io/learn/environments/) and server name you should modify config to this:
+
 ```yaml
 monolog_sentry:
     user_context: true
     browser_agent: true
     tags:
-        symfony_version: !php/const Symfony\Component\HttpKernel\Kernel::VERSION # useful for regression
-        commit: '%env(APP_REVISION)%' # hash of commit
+        symfony_version: !php/const Symfony\Component\HttpKernel\Kernel::VERSION # useful for regression check
+        commit: '%env(APP_REVISION)%' # for example hash of commit, set your own
+                                      #  environment variable or parameter
         environment: '%env(SERVER_NAME)%' # Sentry environment discriminator, much more useful than default `prod`
 ```
 
@@ -85,8 +88,12 @@ Configurable through `browser_agent` value, respectively `phpuseragent` or `nati
 name of service implementing [Parser](https://github.com/mleczakm/monolog-sentry-bundle/blob/master/UserAgent/Parser.php)
 interface.
 
-## Cache support
+## Milestones to stable release
 
-To be added.
+- [x] POC
+- [x] custom tags
+- [x] unit tests
+- [ ] cache adapter
+- [ ] functional tests
 
 
