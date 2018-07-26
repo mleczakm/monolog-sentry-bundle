@@ -7,3 +7,9 @@ build:
             coverage:
               file: clover.xml
               format: php-clover
+
+filter:
+  excluded_paths:
+    - Tests/
+  dependency_paths:
+    - vendor/
