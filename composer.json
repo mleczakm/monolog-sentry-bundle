@@ -19,13 +19,11 @@
   ],
   "require": {
     "php": ">=7.1",
+    "donatj/phpuseragentparser": "^0.10.0",
+    "monolog/monolog": "^1.23",
     "symfony/dependency-injection": "^4.0 || ^3.4",
     "symfony/framework-bundle": "^4.0 || ^3.4",
-    "symfony/security": "^4.0 || ^3.4",
-    "monolog/monolog": "^1.23"
-  },
-  "suggest": {
-    "donatj/phpuseragentparser": "Replacement for php native 'get_browser()` function, doesn't need providing browsecap file"
+    "symfony/security": "^4.0 || ^3.4"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.0 || ^3.4",
