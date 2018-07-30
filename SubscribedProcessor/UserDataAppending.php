@@ -46,7 +46,7 @@ class UserDataAppending implements EventSubscriberInterface
             return;
         }
 
-        if (!\is_object($user = $token->getUser())) {
+        if (!($user = $token->getUser()) instanceof UserInterface) {
             // e.g. anonymous authentication
             return;
         }

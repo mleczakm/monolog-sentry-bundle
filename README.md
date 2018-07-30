@@ -93,6 +93,7 @@ interface.
 - [x] POC
 - [x] custom tags
 - [x] unit tests
+- [x] breadcrumbs support
 - [ ] cache adapter
 - [ ] functional tests
 

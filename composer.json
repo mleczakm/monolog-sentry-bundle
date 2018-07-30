@@ -23,12 +23,12 @@
     "monolog/monolog": "^1.23",
     "symfony/dependency-injection": "^4.0 || ^3.4",
     "symfony/framework-bundle": "^4.0 || ^3.4",
-    "symfony/security": "^4.0 || ^3.4"
+    "symfony/security": "^4.0 || ^3.4",
+    "sentry/sentry": "^1.9"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.0 || ^3.4",
-    "friendsofphp/php-cs-fixer": "^2.12",
-    "phpunit/phpunit": "^7.2"
+    "friendsofphp/php-cs-fixer": "^2.12"
   },
   "autoload": {
     "psr-4": {

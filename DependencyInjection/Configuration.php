@@ -28,7 +28,7 @@ class Configuration implements ConfigurationInterface
                     ->arrayPrototype()
                         ->beforeNormalization()
                         ->ifString()
-                        ->then(function($value) {
+                        ->then(function ($value) {
                             return array('value' => $value);
                         })
                     ->end()
