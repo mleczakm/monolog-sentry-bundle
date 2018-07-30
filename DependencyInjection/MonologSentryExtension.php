@@ -7,6 +7,7 @@ namespace Dziki\MonologSentryBundle\DependencyInjection;
 use Dziki\MonologSentryBundle\Processor\TagAppending;
 use Dziki\MonologSentryBundle\SubscribedProcessor\BrowserDataAppending;
 use Dziki\MonologSentryBundle\SubscribedProcessor\UserDataAppending;
+use Dziki\MonologSentryBundle\UserAgent\CachedParser;
 use Dziki\MonologSentryBundle\UserAgent\NativeParser;
 use Dziki\MonologSentryBundle\UserAgent\PhpUserAgentParser;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -37,8 +38,8 @@ class MonologSentryExtension extends Extension
             ;
         }
 
-        if ($configs['browser_agent']) {
-            $handlerName = $configs['browser_agent'];
+        if ($configs['user_agent_parser']) {
+            $handlerName = $configs['user_agent_parser'];
             switch ($handlerName) {
                 case 'native':
                     $parserClass = NativeParser::class;
@@ -54,6 +55,21 @@ class MonologSentryExtension extends Extension
                     break;
                 default:
                     $parserClass = $handlerName;
+            }
+
+            if ($configs['cache']) {
+                $container->setDefinition(
+                    CachedParser::class,
+                    new Definition(
+                        CachedParser::class,
+                        [
+                            new Reference($configs['cache']),
+                            new Reference($parserClass),
+                        ]
+                    )
+                );
+
+                $parserClass = CachedParser::class;
             }
 
             $container->setDefinition(

@@ -56,10 +56,19 @@ Default configuration looks like that:
 ```yaml
 dziki.monolog_sentry_bundle:
     user_context: true # append username from TokenStorage to log
-    browser_agent: phpuseragent # parser browser name, version and platform from user agent
+    user_agent_parser: phpuseragent # parser browser name, version and platform from user agent
 ``` 
 
 You can turn off logging user context and/or parsing browser by setting any of this values to `false`.
+
+## Caching once parsed User Agents
+
+Caching is supported when service implementing `Psr\SimpleCache\CacheInterface` is provided under `cache`:
+
+```yaml
+dziki.monolog_sentry_bundle:
+    cache: app.default_cache # service implementing "Psr\SimpleCache\CacheInterface" interface
+``` 
 
 ## Custom tags
 
@@ -69,7 +78,7 @@ useful [Sentry environment](https://docs.sentry.io/learn/environments/) and serv
 ```yaml
 monolog_sentry:
     user_context: true
-    browser_agent: true
+    user_agent_parser: phpuseragent
     tags:
         symfony_version: !php/const Symfony\Component\HttpKernel\Kernel::VERSION # useful for regression check
         commit: '%env(APP_REVISION)%' # for example hash of commit, set your own
@@ -80,11 +89,11 @@ monolog_sentry:
 ## User Agent parser
 
 Bundle support two parser:
-- [github.com/donatj/PhpUserAgent](https://github.com/donatj/PhpUserAgent) as default, no config needed
-- native [get_browser()](https://php.net/manual/en/function.get-browser.php) - browscap configuration setting in php.ini 
+- `phpuseragent` ([github.com/donatj/PhpUserAgent](https://github.com/donatj/PhpUserAgent)) as default, no config needed
+- `native` ([get_browser()](https://php.net/manual/en/function.get-browser.php)) - browscap configuration setting in php.ini 
 must point to the correct location of the [browscap.ini](https://browscap.org/)
 
-Configurable through `browser_agent` value, respectively `phpuseragent` or `native`. You can also add own, by providing
+Configurable through `user_agent_parser` value, respectively `phpuseragent` or `native`. You can also add own, by providing
 name of service implementing [Parser](https://github.com/mleczakm/monolog-sentry-bundle/blob/master/UserAgent/Parser.php)
 interface.
 
@@ -94,7 +103,7 @@ interface.
 - [x] custom tags
 - [x] unit tests
 - [x] breadcrumbs support
-- [ ] cache adapter
+- [x] cache adapter
 - [ ] functional tests
 
 
