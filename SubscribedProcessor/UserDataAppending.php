@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserDataAppending implements EventSubscriberInterface
 {
-    /** @var UserInterface */
+    /** @var string */
     private $user;
     /** @var TokenStorageInterface */
     private $tokenStorage;
@@ -25,15 +25,17 @@ class UserDataAppending implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => 'onKernelRequest',
+            KernelEvents::REQUEST => ['onKernelRequest', 7],
         ];
     }
 
     public function __invoke(array $record)
     {
-        $record['context']['user'] = [
-            'username' => $this->user ? $this->user->getUsername() : 'Anonymous',
-        ];
+        if ($this->user) {
+            $record['context']['user'] = [
+                'username' => $this->user,
+            ];
+        }
 
         return $record;
     }
@@ -46,11 +48,18 @@ class UserDataAppending implements EventSubscriberInterface
             return;
         }
 
-        if (!($user = $token->getUser()) instanceof UserInterface) {
-            // e.g. anonymous authentication
+        $user = $token->getUser();
+
+        if (null === $user) {
             return;
         }
 
-        $this->user = $user;
+        if ($user instanceof UserInterface) {
+            $this->user = $user->getUsername();
+
+            return;
+        }
+
+        $this->user = (string) $user;
     }
 }
