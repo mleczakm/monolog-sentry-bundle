@@ -54,7 +54,7 @@ class AppKernel extends Kernel
 Default configuration looks like that:
 
 ```yaml
-dziki.monolog_sentry_bundle:
+monolog_sentry:
     user_context: true # append username from TokenStorage to log
     user_agent_parser: phpuseragent # parser browser name, version and platform from user agent
 ``` 
@@ -66,7 +66,7 @@ You can turn off logging user context and/or parsing browser by setting any of t
 Caching is supported when service implementing `Psr\SimpleCache\CacheInterface` is provided under `cache`:
 
 ```yaml
-dziki.monolog_sentry_bundle:
+monolog_sentry:
     cache: app.default_cache # service implementing "Psr\SimpleCache\CacheInterface" interface
 ``` 
 
