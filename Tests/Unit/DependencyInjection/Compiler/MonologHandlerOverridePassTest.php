@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Dziki\MonologSentryBundle\Tests\Unit\DependencyInjection\Compiler;
 
-use Dziki\MonologSentryBundle\DependencyInjection\Compiler\MonologHandlerOverwritePass;
+use Dziki\MonologSentryBundle\DependencyInjection\Compiler\MonologHandlerOverridePass;
 use Dziki\MonologSentryBundle\Handler\Raven;
 use Monolog\Handler\RavenHandler;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
-class MonologHandlerOverwritePassTest extends TestCase
+class MonologHandlerOverridePassTest extends TestCase
 {
     /**
      * @test
@@ -21,8 +21,8 @@ class MonologHandlerOverwritePassTest extends TestCase
         $containerBuilder = new ContainerBuilder();
         $expected = spl_object_hash($containerBuilder);
 
-        $monologOverwritePass = new MonologHandlerOverwritePass();
-        $monologOverwritePass->process($containerBuilder);
+        $monologOverridePass = new MonologHandlerOverridePass();
+        $monologOverridePass->process($containerBuilder);
 
         self::assertEquals($expected, spl_object_hash($containerBuilder));
     }
@@ -45,8 +45,8 @@ class MonologHandlerOverwritePassTest extends TestCase
             $oldClasses[$id] = $definition->getClass();
         }
 
-        $monologOverwritePass = new MonologHandlerOverwritePass();
-        $monologOverwritePass->process($containerBuilder);
+        $monologOverridePass = new MonologHandlerOverridePass();
+        $monologOverridePass->process($containerBuilder);
 
         foreach ($oldClasses as $id => $class) {
             if ($class === RavenHandler::class) {

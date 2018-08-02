@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dziki\MonologSentryBundle;
 
-use Dziki\MonologSentryBundle\DependencyInjection\Compiler\MonologHandlerOverwritePass;
+use Dziki\MonologSentryBundle\DependencyInjection\Compiler\MonologHandlerOverridePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -20,6 +20,6 @@ class MonologSentryBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new MonologHandlerOverwritePass());
+        $container->addCompilerPass(new MonologHandlerOverridePass());
     }
 }
