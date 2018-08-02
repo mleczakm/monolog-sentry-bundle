@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class MonologSentryBundle
- * @package Dziki\MonologSentryBundle
+ *
  * @property Extension extension
  */
 class MonologSentryBundle extends Bundle
