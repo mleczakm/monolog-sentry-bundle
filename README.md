@@ -105,6 +105,35 @@ Configurable through `user_agent_parser` value, respectively `phpuseragent` or `
 name of service implementing [Parser](https://github.com/mleczakm/monolog-sentry-bundle/blob/master/UserAgent/Parser.php)
 interface.
 
+## Hints
+
+- Hide your Sentry monolog handler behind `buffer` one to prevent low level messages notifications, but kept them in breadcrumbs:
+
+```yaml
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      buffered
+        buffered:
+            type:    buffer
+            handler: sentry
+        sentry:
+            type:    raven
+            dsn:     '%env(SENTRY_DSN)%'
+            level:   info # logs which will show as breadcrumbs in Sentry issue 
+```
+- Add Sentry handler `release` option to monolog config for easy regression seeking:
+```yaml
+monolog:
+    handlers:
+        ...
+        sentry:
+            ...
+            release: '%env(APP_VERSION)%' # version tag or any release ID
+```
+
 ## Milestones to stable release
 
 - [x] POC
