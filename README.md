@@ -12,6 +12,14 @@ commit hash and many more - you can provide custom tags to be added to all your 
 
 Install bundle with `composer require dziki/monolog-sentry-bundle` command.
 
+## TL;DR
+
+### Before
+![screenshot_20180808_004201](https://user-images.githubusercontent.com/3474636/43806409-207069fa-9aa4-11e8-8483-9e4b511c1457.png)
+
+## After
+![screenshot_20180808_002716](https://user-images.githubusercontent.com/3474636/43806415-2a844c0e-9aa4-11e8-81bb-02a7fd6594d1.png)
+
 ## Enable the Bundle
 
 Add entry to `config/bundles.php`:
