@@ -15,6 +15,6 @@ class PhpUserAgentParser implements Parser
         ]
             = \parse_user_agent($userAgent);
 
-        return UserAgent::create($browserName, $browserVersion, $platform);
+        return UserAgent::create((string)$browserName, (string)$browserVersion, (string)$platform);
     }
 }
