@@ -22,7 +22,7 @@ matrix:
           # Test the latest stable release
         - php: 7.1
         - php: 7.2
-          env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text"
+          env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text --coverage-clover coverage.xml"
 
           # Test LTS versions. This makes sure we do not use Symfony packages with version greater
           # than 2 or 3 respectively. Read more at https://github.com/symfony/lts
@@ -53,3 +53,12 @@ script:
     # simple-phpunit is the PHPUnit wrapper provided by the PHPUnit Bridge component and
     # it helps with testing legacy code and deprecations (composer require symfony/phpunit-bridge)
     - ./vendor/bin/simple-phpunit $PHPUNIT_FLAGS
+
+after_script:
+    # upload coverage.xml file to Coveralls to analyze it
+    # minimal required coverage is set to 80+ %
+    - |
+      if [[ $COVERAGE == "true" ]]; then
+        wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
+        php coveralls.phar --verbose
+      fi

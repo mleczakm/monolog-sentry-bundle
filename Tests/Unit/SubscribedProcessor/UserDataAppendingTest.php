@@ -17,7 +17,7 @@ class UserDataAppendingTest extends TestCase
     /**
      * @test
      */
-    public function isSubscribedToKernelRequest()
+    public function isSubscribedToKernelRequest(): void
     {
         $subscribedEvents = UserDataAppending::getSubscribedEvents();
         $this->assertArrayHasKey(KernelEvents::REQUEST, $subscribedEvents);

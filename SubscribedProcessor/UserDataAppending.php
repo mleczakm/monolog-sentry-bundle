@@ -50,10 +50,6 @@ class UserDataAppending implements EventSubscriberInterface
 
         $user = $token->getUser();
 
-        if (null === $user) {
-            return;
-        }
-
         if ($user instanceof UserInterface) {
             $this->user = $user->getUsername();
 

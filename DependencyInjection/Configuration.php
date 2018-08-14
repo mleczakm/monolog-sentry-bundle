@@ -33,7 +33,7 @@ class Configuration implements ConfigurationInterface
                         ->beforeNormalization()
                         ->ifString()
                         ->then(function ($value) {
-                            return array('value' => $value);
+                            return ['value' => $value];
                         })
                     ->end()
                     ->children()
