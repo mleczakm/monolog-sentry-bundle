@@ -30,6 +30,11 @@ class Raven extends RavenHandler
      */
     protected $release;
 
+    public function setRelease($release)
+    {
+        $this->release = $release;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -61,8 +66,6 @@ class Raven extends RavenHandler
             }
         );
 
-        // the other ones are added as a context item
-        $logs = [];
         foreach ($records as $r) {
             $log = $this->processRecord($r);
 
@@ -72,7 +75,7 @@ class Raven extends RavenHandler
                 'category' => $log['channel'],
                 'message' => $log['message'],
                 'level' => strtolower($log['level_name']),
-                'timestamp' => (float)($date instanceof \DateTime ? $date->format('U.u') : $date),
+                'timestamp' => (float)($date instanceof \DateTimeInterface ? $date->format('U.u') : $date),
             ];
 
             if (array_key_exists('context', $log)) {
@@ -88,10 +91,6 @@ class Raven extends RavenHandler
             }
 
             $this->ravenClient->breadcrumbs->record($crumb);
-        }
-
-        if ($logs) {
-            $record['context']['logs'] = (string)$this->getBatchFormatter()->formatBatch($logs);
         }
 
         $this->handle($record);
