@@ -7,11 +7,6 @@ namespace Dziki\MonologSentryBundle\Tests\Unit\UserAgent;
 use Dziki\MonologSentryBundle\UserAgent\NativeParser;
 use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 
-/**
- * Class NativeParserTest
- * @package Dziki\MonologSentryBundle\Tests\Unit\UserAgent
- * @covers \Dziki\MonologSentryBundle\UserAgent\NativeParser
- */
 class NativeParserTest extends AbstractParserTest
 {
     public function validUserAgentsDataProvider(): array
@@ -32,7 +27,7 @@ class NativeParserTest extends AbstractParserTest
                 ],
                 [
                     'Mozilla/5.0 (Linux; Android 7.0; SM-G892A Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.107 Mobile Safari/537.36',
-                    UserAgent::create('Android WebView', '4.0', 'Android'),
+                    UserAgent::create('Android WebView', '60.0', 'Android'),
                 ],
                 [
                     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246',
