@@ -25,7 +25,7 @@ class BundleInitializationTest extends BaseBundleTestCase
         $kernel->addConfigFile(__DIR__ . '/config.yaml');
 
         // Make all services public
-        $this->addCompilerPass(new PublicServicePass());
+        $kernel->addCompilerPasses([new PublicServicePass()]);
 
         // Boot the kernel.
         $kernel->boot();
