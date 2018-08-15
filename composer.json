@@ -20,15 +20,15 @@
   "require": {
     "php": ">=7.1",
     "donatj/phpuseragentparser": "^0.10.0",
-    "monolog/monolog": "^1.23",
     "symfony/dependency-injection": "^4.0 || ^3.4",
-    "symfony/framework-bundle": "^4.0 || ^3.4",
-    "symfony/security": "^4.0 || ^3.4",
+    "symfony/monolog-bundle": "^2.3",
+    "symfony/security-bundle": "^4.0 || ^3.4",
     "sentry/sentry": "^1.9"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.0 || ^3.4",
-    "friendsofphp/php-cs-fixer": "^2.12"
+    "friendsofphp/php-cs-fixer": "^2.12",
+    "nyholm/symfony-bundle-test": "^1.4"
   },
   "autoload": {
     "psr-4": {

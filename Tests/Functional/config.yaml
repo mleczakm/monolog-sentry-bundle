@@ -1,0 +1,35 @@
+framework:
+  test: ~
+  session:
+    storage_id: session.storage.mock_file
+  profiler:
+    collect: false
+  csrf_protection: false
+
+security:
+  providers:
+    in_memory:
+      memory:
+        users:
+          test:
+            password: test
+            roles: ROLE_USER
+  firewalls:
+    main:
+      anonymous: ~
+  encoders:
+    Symfony\Component\Security\Core\User\User: plaintext
+  access_control:
+  - { path: ^/, roles: ROLE_USER }
+
+  role_hierarchy:
+    ROLE_ADMIN: ROLE_USER
+
+monolog_sentry:
+  user_context: true
+  user_agent_parser: phpuseragent
+  cache: cache.app
+  tags:
+    symfony_version: !php/const Symfony\Component\HttpKernel\Kernel::VERSION
+    commit: '37bf8629120469e164477a8d5046967bf3235988'
+    environment: 'test'
