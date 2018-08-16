@@ -112,7 +112,10 @@ class RavenTest extends TestCase
 
         $this->assertEquals($checksum, $ravenClient->lastData['checksum']);
         $this->assertEquals($release, $ravenClient->lastData['release']);
-        $this->assertEquals($eventId, $ravenClient->lastData['event_id']);
+        $this->assertEquals(
+            $eventId,
+            $ravenClient->lastData['event_id'] ?? $ravenClient->lastData['extra']['context']['event_id']
+        );
     }
 
     public function testFingerprint()
@@ -222,10 +225,12 @@ class RavenTest extends TestCase
     {
         $logFormatter = $this->createMock(FormatterInterface::class);
         $logFormatter->expects($this->never())
-                     ->method('format');
+                     ->method('format')
+        ;
 
         $logFormatter->expects($this->never())
-                     ->method('formatBatch');
+                     ->method('formatBatch')
+        ;
 
         $handler = $this->getHandler($this->getRavenClient());
         $handler->setBatchFormatter($logFormatter);
@@ -241,7 +246,8 @@ class RavenTest extends TestCase
         $logFormatter = $this->createMock(FormatterInterface::class);
         $logFormatter->expects($this->once())
                      ->method('format')
-                     ->willReturnArgument(0);
+                     ->willReturnArgument(0)
+        ;
 
         $ravenClient = $this->getRavenClient();
 
