@@ -142,5 +142,3 @@ monolog:
 - [x] cache adapter
 - [x] functional tests
 - [ ] valuable functional tests ;)
-
-
