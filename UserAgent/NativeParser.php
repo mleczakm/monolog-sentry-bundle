@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dziki\MonologSentryBundle\UserAgent;
 
-class NativeParser implements Parser
+class NativeParser implements ParserInterface
 {
     public function parse(string $userAgent): UserAgent
     {

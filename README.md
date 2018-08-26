@@ -102,8 +102,7 @@ Bundle support two parser:
 must point to the correct location of the [browscap.ini](https://browscap.org/)
 
 Configurable through `user_agent_parser` value, respectively `phpuseragent` or `native`. You can also add own, by providing
-name of service implementing [Parser](https://github.com/mleczakm/monolog-sentry-bundle/blob/master/UserAgent/Parser.php)
-interface.
+name of service implementing [ParserInterface](https://github.com/mleczakm/monolog-sentry-bundle/blob/master/UserAgent/ParserInterface.php).
 
 ## Hints
 
@@ -141,6 +140,7 @@ monolog:
 - [x] unit tests
 - [x] breadcrumbs support
 - [x] cache adapter
-- [ ] functional tests
+- [x] functional tests
+- [ ] valuable functional tests ;)
 
 

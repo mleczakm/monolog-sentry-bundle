@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dziki\MonologSentryBundle\UserAgent;
 
-class PhpUserAgentParser implements Parser
+class PhpUserAgentParser implements ParserInterface
 {
     public function parse(string $userAgent): UserAgent
     {
@@ -15,6 +15,6 @@ class PhpUserAgentParser implements Parser
         ]
             = \parse_user_agent($userAgent);
 
-        return UserAgent::create((string)$browserName, (string)$browserVersion, (string)$platform);
+        return UserAgent::create((string) $browserName, (string) $browserVersion, (string) $platform);
     }
 }

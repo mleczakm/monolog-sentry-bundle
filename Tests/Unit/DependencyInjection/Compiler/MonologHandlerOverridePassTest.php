@@ -49,7 +49,7 @@ class MonologHandlerOverridePassTest extends TestCase
         $monologOverridePass->process($containerBuilder);
 
         foreach ($oldClasses as $id => $class) {
-            if ($class === RavenHandler::class) {
+            if (RavenHandler::class === $class) {
                 $this->assertSame(
                     Raven::class,
                     $containerBuilder

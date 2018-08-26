@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Dziki\MonologSentryBundle\Tests\Unit\SubscribedProcessor;
 
 use Dziki\MonologSentryBundle\SubscribedProcessor\BrowserDataAppending;
-use Dziki\MonologSentryBundle\UserAgent\Parser;
+use Dziki\MonologSentryBundle\UserAgent\ParserInterface;
 use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ class BrowserDataAppendingTest extends TestCase
      */
     protected $browserDataAppendingProcessor;
     /**
-     * @var Parser|MockObject
+     * @var ParserInterface|MockObject
      */
     protected $parser;
 
@@ -40,8 +40,8 @@ class BrowserDataAppendingTest extends TestCase
      */
     public function parseUserAgentOnRequest(): BrowserDataAppending
     {
-        /** @var Parser|MockObject $parser */
-        $parser = $this->createMock(Parser::class);
+        /** @var ParserInterface|MockObject $parser */
+        $parser = $this->createMock(ParserInterface::class);
         $this->parser = $parser;
         $browserDataAppendingProcessor = new BrowserDataAppending($parser);
 
@@ -57,7 +57,7 @@ class BrowserDataAppendingTest extends TestCase
         $request = $this->createMock(Request::class);
         $request->headers = $headersBag;
         /**
-         * @var GetResponseEvent|MockObject $event
+         * @var GetResponseEvent|MockObject
          */
         $event = $this->createMock(GetResponseEvent::class);
         $event->method('getRequest')
@@ -72,6 +72,7 @@ class BrowserDataAppendingTest extends TestCase
     /**
      * @test
      * @depends parseUserAgentOnRequest
+     *
      * @param BrowserDataAppending $browserDataAppendingProcessor
      */
     public function addParsedUserAgentDataToLogRecord(BrowserDataAppending $browserDataAppendingProcessor): void
@@ -92,7 +93,7 @@ class BrowserDataAppendingTest extends TestCase
      */
     public function doNotAddAnythingIfUserAgentNotParsed(): void
     {
-        $browserDataAppendingProcessor = new BrowserDataAppending($this->createMock(Parser::class));
+        $browserDataAppendingProcessor = new BrowserDataAppending($this->createMock(ParserInterface::class));
 
         $record = $browserDataAppendingProcessor([]);
         $this->assertSame([], $record);

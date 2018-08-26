@@ -22,7 +22,7 @@ class BundleInitializationTest extends BaseBundleTestCase
         $kernel->addBundle(SecurityBundle::class);
         $kernel->addBundle(MonologBundle::class);
 
-        $kernel->addConfigFile(__DIR__ . '/config.yaml');
+        $kernel->addConfigFile(__DIR__.'/config.yaml');
 
         // Make all services public
         $kernel->addCompilerPasses([new PublicServicePass()]);
@@ -50,7 +50,7 @@ class BundleInitializationTest extends BaseBundleTestCase
         // you may need to use a different token class depending on your application.
         // for example, when using Guard authentication you must instantiate PostAuthenticationGuardToken
         $token = new UsernamePasswordToken('test', 'test', $firewallName, ['ROLE_ADMIN']);
-        $session->set('_security_' . $firewallContext, serialize($token));
+        $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();
     }
 

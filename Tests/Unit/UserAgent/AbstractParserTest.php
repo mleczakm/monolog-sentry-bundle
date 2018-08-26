@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Dziki\MonologSentryBundle\Tests\Unit\UserAgent;
 
-use Dziki\MonologSentryBundle\UserAgent\Parser;
+use Dziki\MonologSentryBundle\UserAgent\ParserInterface;
 use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractParserTest extends TestCase
 {
-    /** @var Parser */
+    /** @var ParserInterface */
     private $parser;
 
     public function validUserAgentsDataProvider(): array
@@ -37,7 +37,7 @@ abstract class AbstractParserTest extends TestCase
         ];
     }
 
-    protected function setParser(Parser $parser): void
+    protected function setParser(ParserInterface $parser): void
     {
         $this->parser = $parser;
     }
@@ -46,7 +46,7 @@ abstract class AbstractParserTest extends TestCase
      * @test
      * @dataProvider validUserAgentsDataProvider
      *
-     * @param string $userAgent
+     * @param string    $userAgent
      * @param UserAgent $expectedUserAgent
      */
     public function parseValidUserAgent(string $userAgent, UserAgent $expectedUserAgent): void

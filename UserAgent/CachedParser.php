@@ -6,18 +6,18 @@ namespace Dziki\MonologSentryBundle\UserAgent;
 
 use Psr\SimpleCache\CacheInterface;
 
-class CachedParser implements Parser
+class CachedParser implements ParserInterface
 {
     /**
      * @var CacheInterface
      */
     private $cache;
     /**
-     * @var Parser
+     * @var ParserInterface
      */
     private $parser;
 
-    public function __construct(CacheInterface $cache, Parser $parser)
+    public function __construct(CacheInterface $cache, ParserInterface $parser)
     {
         $this->cache = $cache;
         $this->parser = $parser;

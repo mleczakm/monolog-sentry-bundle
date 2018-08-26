@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Dziki\MonologSentryBundle\Tests\Unit\UserAgent;
 
 use Dziki\MonologSentryBundle\UserAgent\CachedParser;
-use Dziki\MonologSentryBundle\UserAgent\Parser;
+use Dziki\MonologSentryBundle\UserAgent\ParserInterface;
 use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 use PHPUnit\Framework\TestCase;
 use Psr\SimpleCache\CacheInterface;
@@ -15,6 +15,7 @@ class CachedParserTest extends TestCase
     /**
      * @test
      * @dataProvider userAgentsDataProvider
+     *
      * @param string $requestedUserAgent
      */
     public function notFoundEntriesCallsNextParserAndAddToCache(string $requestedUserAgent): void
@@ -33,7 +34,7 @@ class CachedParserTest extends TestCase
                        ->willReturn(null)
         ;
 
-        $nextParser = $this->createMock(Parser::class);
+        $nextParser = $this->createMock(ParserInterface::class);
         $nextParser->expects($this->once())
                    ->method('parse')
                    ->with($requestedUserAgent)
@@ -59,6 +60,7 @@ class CachedParserTest extends TestCase
     /**
      * @test
      * @dataProvider userAgentsDataProvider
+     *
      * @param string $requestedUserAgent
      */
     public function foundEntriesReturnsItImmediately(string $requestedUserAgent): void
@@ -72,7 +74,7 @@ class CachedParserTest extends TestCase
                        ->willReturn($parsedSerializedAgent)
         ;
 
-        $nextParser = $this->createMock(Parser::class);
+        $nextParser = $this->createMock(ParserInterface::class);
 
         $cachedParser = new CachedParser($cacheInterface, $nextParser);
 

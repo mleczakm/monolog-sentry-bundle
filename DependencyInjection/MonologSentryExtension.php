@@ -18,7 +18,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class MonologSentryExtension extends Extension
 {
-
     /**
      * Loads a specific configuration.
      *
@@ -84,7 +83,7 @@ class MonologSentryExtension extends Extension
 
         if (\is_array($configs['tags'])) {
             foreach ($configs['tags'] as $tag => ['value' => $value, 'name' => $name]) {
-                $tagName = $name ?: (string)$tag;
+                $tagName = $name ?: (string) $tag;
                 $container->setDefinition(
                     "dziki.monolog_sentry_bundle.{$tag}_appending_processor",
                     new Definition(

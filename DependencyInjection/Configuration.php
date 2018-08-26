@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultTrue()
                 ->end()
                 ->scalarNode('user_agent_parser')
-                    ->info('phpuseragent (default), native or id of custom service implementing Parser interface')
+                    ->info('phpuseragent (default), native or id of custom service implementing ParserInterface interface')
                     ->defaultValue('phpuseragent')
                 ->end()
                 ->scalarNode('cache')

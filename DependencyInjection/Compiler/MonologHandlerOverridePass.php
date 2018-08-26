@@ -16,7 +16,7 @@ class MonologHandlerOverridePass implements CompilerPassInterface
     {
         array_map(
             function (Definition $definition) {
-                if ($definition->getClass() === RavenHandler::class) {
+                if (RavenHandler::class === $definition->getClass()) {
                     $definition->setClass(Raven::class);
                 }
             },

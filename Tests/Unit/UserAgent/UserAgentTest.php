@@ -16,7 +16,6 @@ class UserAgentTest extends TestCase
      * @param string $browser
      * @param string $version
      * @param string $platform
-     *
      */
     public function createsThemselvesAndProvideBrowserNameVersionAndPlatform(string $browser, string $version, string $platform): void
     {

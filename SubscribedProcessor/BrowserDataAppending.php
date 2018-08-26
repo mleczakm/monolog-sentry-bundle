@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dziki\MonologSentryBundle\SubscribedProcessor;
 
-use Dziki\MonologSentryBundle\UserAgent\Parser;
+use Dziki\MonologSentryBundle\UserAgent\ParserInterface;
 use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -15,11 +15,11 @@ class BrowserDataAppending implements EventSubscriberInterface
     /** @var UserAgent */
     private $userAgent;
     /**
-     * @var Parser
+     * @var ParserInterface
      */
     private $parser;
 
-    public function __construct(Parser $parser)
+    public function __construct(ParserInterface $parser)
     {
         $this->parser = $parser;
     }

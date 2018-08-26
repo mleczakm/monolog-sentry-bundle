@@ -11,7 +11,7 @@ use Raven_Client;
 class Raven extends RavenHandler
 {
     /**
-     * Because of https://github.com/Seldaek/monolog/pull/1179
+     * Because of https://github.com/Seldaek/monolog/pull/1179.
      */
     protected $logLevels = [
         Logger::DEBUG => Raven_Client::DEBUG,
@@ -24,7 +24,7 @@ class Raven extends RavenHandler
         Logger::EMERGENCY => Raven_Client::FATAL,
     ];
     /**
-     * Because of https://github.com/Seldaek/monolog/pull/1179
+     * Because of https://github.com/Seldaek/monolog/pull/1179.
      *
      * @var string
      */
@@ -75,17 +75,17 @@ class Raven extends RavenHandler
                 'category' => $log['channel'],
                 'message' => $log['message'],
                 'level' => strtolower($log['level_name']),
-                'timestamp' => (float)($date instanceof \DateTimeInterface ? $date->format('U.u') : $date),
+                'timestamp' => (float) ($date instanceof \DateTimeInterface ? $date->format('U.u') : $date),
             ];
 
             if (array_key_exists('context', $log)) {
-                if ($log['channel'] === 'request' && array_key_exists('route_parameters', $log['context'])) {
+                if ('request' === $log['channel'] && array_key_exists('route_parameters', $log['context'])) {
                     $crumb['data']['route'] = $log['context']['route_parameters']['_route'];
                     $crumb['data']['controller'] = $log['context']['route_parameters']['_controller'];
                     $crumb['data']['uri'] = $log['context']['request_uri'];
                 }
 
-                if ($log['channel'] === 'security' && array_key_exists('user', $log['context'])) {
+                if ('security' === $log['channel'] && array_key_exists('user', $log['context'])) {
                     $crumb['data']['user'] = $log['context']['user']['username'];
                 }
             }
@@ -97,7 +97,7 @@ class Raven extends RavenHandler
     }
 
     /**
-     * Because of https://github.com/Seldaek/monolog/pull/1179
+     * Because of https://github.com/Seldaek/monolog/pull/1179.
      *
      * @param array $record
      */
@@ -167,7 +167,7 @@ class Raven extends RavenHandler
             $this->ravenClient->captureMessage($record['formatted'], [], $options);
         }
 
-        if ($previousUserContext !== false) {
+        if (false !== $previousUserContext) {
             $this->ravenClient->user_context($previousUserContext);
         }
     }

@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class MonologSentryBundle
+ * Class MonologSentryBundle.
  *
  * @property Extension extension
  */

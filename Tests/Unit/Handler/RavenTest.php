@@ -53,15 +53,16 @@ class RavenTest extends TestCase
     }
 
     /**
-     * @param int $level
+     * @param int    $level
      * @param string $message
-     * @param array $context
+     * @param array  $context
+     *
      * @return array Record
      */
     protected function getRecord($level = Logger::WARNING, $message = 'test', array $context = []): array
     {
         return [
-            'message' => (string)$message,
+            'message' => (string) $message,
             'context' => $context,
             'level' => $level,
             'level_name' => Logger::getLevelName($level),
@@ -173,7 +174,7 @@ class RavenTest extends TestCase
             $handler->handle($record);
         }
 
-        $this->assertEquals('[test] ' . $record['message'], $ravenClient->lastData['message']);
+        $this->assertEquals('[test] '.$record['message'], $ravenClient->lastData['message']);
     }
 
     private function methodThatThrowsAnException()
@@ -193,7 +194,7 @@ class RavenTest extends TestCase
         $formatter->expects($this->once())->method('format')->with(
             $this->callback(
                 function ($record) {
-                    return $record['level'] == 400;
+                    return 400 == $record['level'];
                 }
             )
         )
@@ -298,7 +299,7 @@ class RavenTest extends TestCase
         $formatter->expects($this->once())->method('format')->with(
             $this->callback(
                 function ($record) use ($records) {
-                    return $record['message'] == 'error 1';
+                    return 'error 1' == $record['message'];
                 }
             )
         )

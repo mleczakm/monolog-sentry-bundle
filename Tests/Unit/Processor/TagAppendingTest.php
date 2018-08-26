@@ -12,6 +12,7 @@ class TagAppendingTest extends TestCase
     /**
      * @dataProvider stringValuesWithIndexesDataProvider
      * @test
+     *
      * @param string $index
      * @param string $tagValue
      */
