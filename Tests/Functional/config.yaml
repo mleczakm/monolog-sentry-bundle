@@ -28,7 +28,6 @@ security:
 monolog_sentry:
   user_context: true
   user_agent_parser: phpuseragent
-  cache: cache.app.simple
   tags:
     symfony_version: !php/const Symfony\Component\HttpKernel\Kernel::VERSION
     commit: '37bf8629120469e164477a8d5046967bf3235988'

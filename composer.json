@@ -20,13 +20,14 @@
   "require": {
     "php": ">=7.1",
     "donatj/phpuseragentparser": "^0.10.0",
-    "symfony/dependency-injection": "^4.0 || ^3.4",
+    "symfony/dependency-injection": "^3.4|^4.1",
     "symfony/monolog-bundle": "^3.3",
-    "symfony/security-bundle": "^4.0 || ^3.4",
-    "sentry/sentry": "^1.9"
+    "symfony/monolog-bridge": "^3.4|^4.1",
+    "symfony/security-bundle": "^3.4|^4.1",
+    "sentry/sentry": "^1.9.1"
   },
   "require-dev": {
-    "symfony/phpunit-bridge": "^4.0 || ^3.4",
+    "symfony/phpunit-bridge": "^3.4|^4.0",
     "friendsofphp/php-cs-fixer": "^2.12",
     "nyholm/symfony-bundle-test": "^1.4"
   },

@@ -9,6 +9,7 @@ use Dziki\MonologSentryBundle\Processor\TagAppending;
 use Dziki\MonologSentryBundle\SubscribedProcessor\UserDataAppending;
 use Dziki\MonologSentryBundle\UserAgent\CachedParser;
 use Dziki\MonologSentryBundle\UserAgent\PhpUserAgentParser;
+use Nyholm\BundleTest\AppKernel;
 use Nyholm\BundleTest\BaseBundleTestCase;
 use Nyholm\BundleTest\CompilerPass\PublicServicePass;
 use Psr\Log\LoggerInterface;
@@ -25,13 +26,25 @@ class BundleInitializationTest extends BaseBundleTestCase
      */
     public function checkDefaultServicesLoaded(): void
     {
+        $kernel = $this->prepareKernel();
+
+        $this->checkDefaultServices($kernel);
+    }
+
+    /**
+     * @param string $configFilePath
+     *
+     * @return AppKernel
+     */
+    private function prepareKernel(string $configFilePath = 'config.yaml'): AppKernel
+    {
         // Create a new Kernel
         $kernel = $this->createKernel();
 
         $kernel->addBundle(SecurityBundle::class);
         $kernel->addBundle(MonologBundle::class);
 
-        $kernel->addConfigFile(__DIR__ . '/config.yaml');
+        $kernel->addConfigFile(__DIR__ . DIRECTORY_SEPARATOR . $configFilePath);
 
         // Make all services public
         $kernel->addCompilerPasses([new PublicServicePass()]);
@@ -39,16 +52,17 @@ class BundleInitializationTest extends BaseBundleTestCase
         // Boot the kernel.
         $kernel->boot();
 
-        // Get the container
+        return $kernel;
+    }
+
+    private function checkDefaultServices(AppKernel $kernel): void
+    {
         $container = $this->getContainer();
 
         $this->logIn($container);
 
         $userDataAppending = $container->get('dziki.monolog_sentry_bundle.user_data_appending_subscribed_processor');
         $this->assertInstanceOf(UserDataAppending::class, $userDataAppending);
-
-        $cachedParser = $container->get(CachedParser::class);
-        $this->assertInstanceOf(CachedParser::class, $cachedParser);
 
         $phpUserAgentParser = $container->get(PhpUserAgentParser::class);
         $this->assertInstanceOf(PhpUserAgentParser::class, $phpUserAgentParser);
@@ -82,6 +96,17 @@ class BundleInitializationTest extends BaseBundleTestCase
         $token = new UsernamePasswordToken('test', 'test', $firewallName, ['ROLE_ADMIN']);
         $session->set('_security_' . $firewallContext, serialize($token));
         $session->save();
+    }
+
+    /**
+     * @test
+     */
+    public function checkCacheServiceLoaded(): void
+    {
+        $kernel = $this->prepareKernel('config_with_cache.yaml');
+
+        $cachedParser = $kernel->getContainer()->get(CachedParser::class);
+        $this->assertInstanceOf(CachedParser::class, $cachedParser);
     }
 
     protected function getBundleClass(): string

@@ -1,0 +1,9 @@
+imports:
+- { resource: config.yaml }
+
+monolog_sentry:
+  cache: simple_array_cache
+
+services:
+  simple_array_cache:
+    class: 'Symfony\Component\Cache\Simple\ArrayCache'

@@ -66,7 +66,9 @@ takes about 0.1ms (up to 1ms using native parser) for every request, so...
 
 ## Caching once parsed User Agents
 
-Caching is supported when service implementing `Psr\SimpleCache\CacheInterface` is provided under `cache` config entry:
+Caching is supported when service implementing `Psr\SimpleCache\CacheInterface` is provided under `cache` config entry.
+Starting from version 4.1 of Symfony there is default simple cache service `cache.app.simple`, in previous versions you 
+need to define own service:
 
 ```yaml
 monolog_sentry:
@@ -84,8 +86,7 @@ monolog_sentry:
     user_agent_parser: phpuseragent
     tags:
         symfony_version: !php/const Symfony\Component\HttpKernel\Kernel::VERSION # useful for regression check
-        commit: '%env(APP_REVISION)%' # for example hash of commit, set your own
-                                      #  environment variable or parameter
+        commit: '%env(APP_REVISION)%' # for example hash of commit, set your own environment variable or parameter
         environment: '%env(SERVER_NAME)%' # Sentry environment discriminator, much more useful than default `prod`
 ```
 
