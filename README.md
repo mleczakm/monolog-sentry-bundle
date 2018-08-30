@@ -5,8 +5,9 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mleczakm/monolog-sentry-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mleczakm/monolog-sentry-bundle/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/539b5154-ad2a-4417-bbea-dc13a6f69c0c/mini.png)](https://insight.sensiolabs.com/projects/539b5154-ad2a-4417-bbea-dc13a6f69c0c)
 
-Bundle for appending useful data to log records like username, parsed user-agent header, host name, Symfony version, 
-commit hash and many more - you can provide custom tags to be added to all your logs.
+Bundle for appending useful data to [Monolog](https://github.com/Seldaek/monolog) log records like username, 
+parsed user-agent header, host name, Symfony version, commit hash and a lot more - you can provide custom tags 
+to be added to all your logs.
 
 ## Installation
 
@@ -26,33 +27,26 @@ Add entry to `config/bundles.php`:
 
 ```php
 return [
-    ...
+    // ...
     Dziki\MonologSentryBundle\MonologSentryBundle::class => ['all' => true],
-    ...
 ];
-
 ```
 
 or to `app/AppKernel.php`
 
 ```php
-<?php
-// app/AppKernel.php
+<?php // app/AppKernel.php
 
-// ...
 class AppKernel extends Kernel
 {
     public function registerBundles()
     {
         $bundles = array(
             // ...
-
             new Dziki\MonologSentryBundle\MonologSentryBundle(),
         );
-
         // ...
     }
-
     // ...
 }
 ```
@@ -67,15 +61,16 @@ monolog_sentry:
     user_agent_parser: phpuseragent # parser browser name, version and platform from user agent
 ``` 
 
-You can turn off logging user context and/or parsing browser by setting any of this values to `false`.
+You can turn off logging user context and/or parsing browser by setting any of this values to `false`. Parsing user agent
+takes about 0.1ms (up to 1ms using native parser) for every request, so...
 
 ## Caching once parsed User Agents
 
-Caching is supported when service implementing `Psr\SimpleCache\CacheInterface` is provided under `cache`:
+Caching is supported when service implementing `Psr\SimpleCache\CacheInterface` is provided under `cache` config entry:
 
 ```yaml
 monolog_sentry:
-    cache: app.default_cache # service implementing "Psr\SimpleCache\CacheInterface" interface
+    cache: cache.app.simple # service implementing "Psr\SimpleCache\CacheInterface" interface
 ``` 
 
 ## Custom tags
