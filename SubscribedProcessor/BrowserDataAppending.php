@@ -47,7 +47,7 @@ class BrowserDataAppending implements EventSubscriberInterface
     public function onKernelRequest(GetResponseEvent $event): void
     {
         /** @var string $userAgent */
-        $userAgent = $event->getRequest()->headers->get('User-Agent');
+        $userAgent = $event->getRequest()->headers->get('User-Agent', '', true);
 
         $this->userAgent = $this->parser->parse($userAgent);
     }

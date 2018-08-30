@@ -28,8 +28,23 @@ security:
 monolog_sentry:
   user_context: true
   user_agent_parser: phpuseragent
-  cache: cache.app
+  cache: cache.app.simple
   tags:
     symfony_version: !php/const Symfony\Component\HttpKernel\Kernel::VERSION
     commit: '37bf8629120469e164477a8d5046967bf3235988'
     environment: 'test'
+
+monolog:
+  handlers:
+    main:
+      type:         fingers_crossed
+      action_level: notice
+      handler:      buffered
+    buffered:
+      type:    buffer
+      handler: sentry
+    sentry:
+      type:    raven
+      dsn:     http://test-hash@some-sentry.com/some-id
+      level:   notice
+      release: 0.0.0.1-dev
