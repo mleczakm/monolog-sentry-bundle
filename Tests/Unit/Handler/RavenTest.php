@@ -53,22 +53,25 @@ class RavenTest extends TestCase
     }
 
     /**
-     * @param int    $level
+     * @param int $level
      * @param string $message
-     * @param array  $context
+     * @param array $context
      *
+     * @param string $channel
+     * @param array $extra
      * @return array Record
+     * @throws \Exception
      */
-    protected function getRecord($level = Logger::WARNING, $message = 'test', array $context = []): array
+    protected function getRecord($level = Logger::WARNING, $message = 'test', array $context = [], $channel = 'test', $extra = []): array
     {
         return [
-            'message' => (string) $message,
+            'message' => (string)$message,
             'context' => $context,
             'level' => $level,
             'level_name' => Logger::getLevelName($level),
-            'channel' => 'test',
+            'channel' => $channel,
             'datetime' => new \DateTimeImmutable(),
-            'extra' => [],
+            'extra' => $extra,
         ];
     }
 
@@ -136,7 +139,7 @@ class RavenTest extends TestCase
         $ravenClient = $this->getRavenClient();
         $handler = $this->getHandler($ravenClient);
 
-        $recordWithNoContext = $this->getRecord(Logger::INFO, 'test with default user context');
+        $recordWithNoContext = $this->getRecord(Logger::ERROR, 'test with default user context');
         // set user context 'externally'
 
         $user = [
@@ -144,11 +147,27 @@ class RavenTest extends TestCase
             'email' => 'test@test.com',
         ];
 
-        $recordWithContext = $this->getRecord(Logger::INFO, 'test', ['user' => $user]);
+        $recordWithContext = $this->getRecord(
+            Logger::ERROR,
+            'test',
+            [
+                'user' => $user,
+                'tags' => ['another_tag' => 'null_value'],
+                'something' => 'anything',
+                'exception' => new \Exception('test exception'),
+                'logger' => 'logger',
+            ],
+            'any',
+            [
+                'tags' => ['tag_name' => 'value'],
+                'some_additional_data_key' => 'some_additional_data',
+            ]
+        );
 
         // handle with null context
         $ravenClient->user_context(null);
         $handler->handle($recordWithContext);
+
         $this->assertEquals($user, $ravenClient->lastData['user']);
 
         $ravenClient->user_context(['id' => 'test_user_id']);
@@ -174,7 +193,7 @@ class RavenTest extends TestCase
             $handler->handle($record);
         }
 
-        $this->assertEquals('[test] '.$record['message'], $ravenClient->lastData['message']);
+        $this->assertEquals('[test] ' . $record['message'], $ravenClient->lastData['message']);
     }
 
     private function methodThatThrowsAnException()
@@ -335,6 +354,40 @@ class RavenTest extends TestCase
         $record = $this->getRecord(Logger::INFO, 'test', ['release' => $localRelease]);
         $handler->handle($record);
         $this->assertEquals($localRelease, $ravenClient->lastData['release']);
+    }
+
+    public function testHandleBatchBreadcrumbsSecurityAndRouting(): void
+    {
+        $records = $this->getMultipleRecords();
+        $records[] = $this->getRecord(
+            Logger::WARNING,
+            'warning',
+            ['route_parameters' => [
+                '_route' => 'foo_bar_route',
+                '_controller' => 'Foo\Bar\Controller',
+            ],
+                'request_uri' => 'foo.bar',
+            ],
+            'request'
+        );
+        $records[] = $this->getRecord(Logger::WARNING, 'warning', ['user' => ['username' => 'foobar']], 'security');
+
+        $logFormatter = $this->createMock('Monolog\\Formatter\\FormatterInterface');
+
+        $formatter = $this->createMock('Monolog\\Formatter\\FormatterInterface');
+        $formatter->expects($this->once())->method('format')->with(
+            $this->callback(
+                function ($record) {
+                    return 400 == $record['level'];
+                }
+            )
+        )
+        ;
+
+        $handler = $this->getHandler($this->getRavenClient());
+        $handler->setBatchFormatter($logFormatter);
+        $handler->setFormatter($formatter);
+        $handler->handleBatch($records);
     }
 
     protected function getIdentityFormatter(): FormatterInterface

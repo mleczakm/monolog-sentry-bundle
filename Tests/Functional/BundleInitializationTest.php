@@ -147,8 +147,8 @@ class BundleInitializationTest extends BaseBundleTestCase
     }
 }
 
-class CustomParser implements ParserInterface {
-
+class CustomParser implements ParserInterface
+{
     public function parse(string $userAgent): UserAgent
     {
         return UserAgent::create('', '', '');
