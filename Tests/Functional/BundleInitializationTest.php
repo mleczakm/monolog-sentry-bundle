@@ -6,9 +6,13 @@ namespace Dziki\MonologSentryBundle\Tests\Functional;
 
 use Dziki\MonologSentryBundle\MonologSentryBundle;
 use Dziki\MonologSentryBundle\Processor\TagAppending;
+use Dziki\MonologSentryBundle\SubscribedProcessor\BrowserDataAppending;
 use Dziki\MonologSentryBundle\SubscribedProcessor\UserDataAppending;
 use Dziki\MonologSentryBundle\UserAgent\CachedParser;
+use Dziki\MonologSentryBundle\UserAgent\NativeParser;
+use Dziki\MonologSentryBundle\UserAgent\ParserInterface;
 use Dziki\MonologSentryBundle\UserAgent\PhpUserAgentParser;
+use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 use Nyholm\BundleTest\AppKernel;
 use Nyholm\BundleTest\BaseBundleTestCase;
 use Nyholm\BundleTest\CompilerPass\PublicServicePass;
@@ -24,11 +28,14 @@ class BundleInitializationTest extends BaseBundleTestCase
     /**
      * @test
      */
-    public function checkDefaultServicesLoaded(): void
+    public function checkPhpUserAgentParserLoaded(): void
     {
         $kernel = $this->prepareKernel();
 
         $this->checkDefaultServices($kernel);
+
+        $phpUserAgentParser = $kernel->getContainer()->get(PhpUserAgentParser::class);
+        $this->assertInstanceOf(PhpUserAgentParser::class, $phpUserAgentParser);
     }
 
     /**
@@ -63,9 +70,6 @@ class BundleInitializationTest extends BaseBundleTestCase
 
         $userDataAppending = $container->get('dziki.monolog_sentry_bundle.user_data_appending_subscribed_processor');
         $this->assertInstanceOf(UserDataAppending::class, $userDataAppending);
-
-        $phpUserAgentParser = $container->get(PhpUserAgentParser::class);
-        $this->assertInstanceOf(PhpUserAgentParser::class, $phpUserAgentParser);
 
         foreach (['symfony_version', 'commit', 'environment'] as $tagName) {
             $tagService = $container->get("dziki.monolog_sentry_bundle.{$tagName}_appending_processor");
@@ -109,8 +113,44 @@ class BundleInitializationTest extends BaseBundleTestCase
         $this->assertInstanceOf(CachedParser::class, $cachedParser);
     }
 
+    /**
+     * @test
+     */
+    public function checkCustomParserLoadedWhenServiceNameProvided(): void
+    {
+        $kernel = $this->prepareKernel('config_with_custom_parser.yaml');
+
+        $processorWithCustomParser = $kernel->getContainer()->get('dziki.monolog_sentry_bundle.browser_data_appending_subscribed_processor');
+        $this->assertInstanceOf(BrowserDataAppending::class, $processorWithCustomParser);
+    }
+
+    /**
+     * @test
+     */
+    public function checkNativeParserLoaded(): void
+    {
+        if (!ini_get('browscap')) {
+            $this->markTestSkipped(
+                'The browscap.ini directive not set, skipped.'
+            );
+        }
+
+        $kernel = $this->prepareKernel('config_with_native_parser.yaml');
+
+        $nativeParser = $kernel->getContainer()->get(NativeParser::class);
+        $this->assertInstanceOf(NativeParser::class, $nativeParser);
+    }
+
     protected function getBundleClass(): string
     {
         return MonologSentryBundle::class;
+    }
+}
+
+class CustomParser implements ParserInterface {
+
+    public function parse(string $userAgent): UserAgent
+    {
+        return UserAgent::create('', '', '');
     }
 }

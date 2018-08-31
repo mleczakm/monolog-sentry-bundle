@@ -1,0 +1,9 @@
+imports:
+- { resource: config.yaml }
+
+monolog_sentry:
+  user_agent_parser: some.custom.parser.id
+
+services:
+  some.custom.parser.id:
+    class: Dziki\MonologSentryBundle\Tests\Functional\CustomParser

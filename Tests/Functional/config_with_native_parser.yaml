@@ -1,0 +1,5 @@
+imports:
+- { resource: config.yaml }
+
+monolog_sentry:
+  user_agent_parser: native
