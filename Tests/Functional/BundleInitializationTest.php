@@ -146,11 +146,3 @@ class BundleInitializationTest extends BaseBundleTestCase
         return MonologSentryBundle::class;
     }
 }
-
-class CustomParser implements ParserInterface
-{
-    public function parse(string $userAgent): UserAgent
-    {
-        return UserAgent::create('', '', '');
-    }
-}

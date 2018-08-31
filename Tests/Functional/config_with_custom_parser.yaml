@@ -6,4 +6,4 @@ monolog_sentry:
 
 services:
   some.custom.parser.id:
-    class: Dziki\MonologSentryBundle\Tests\Functional\CustomParser
+    class: Dziki\MonologSentryBundle\Tests\Functional\CustomParserStub
