@@ -31,7 +31,7 @@ class MonologSentryExtensionTest extends AbstractExtensionTestCase
 
         $defaultServices = [
             'dziki.monolog_sentry_bundle.user_data_appending_subscribed_processor',
-            'dziki\monologsentrybundle\useragent\phpuseragentparser',
+            'Dziki\MonologSentryBundle\UserAgent\PhpUserAgentParser',
             'dziki.monolog_sentry_bundle.browser_data_appending_subscribed_processor',
             'dziki.monolog_sentry_bundle.test_appending_processor',
             'dziki.monolog_sentry_bundle.test2_appending_processor',
