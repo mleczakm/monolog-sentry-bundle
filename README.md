@@ -1,9 +1,11 @@
 # Monolog Sentry Bundle
 
+[![Latest Stable Version](https://poser.pugx.org/dziki/monolog-sentry-bundle/v/stable)](https://packagist.org/packages/dziki/monolog-sentry-bundle)
 [![Build Status](https://travis-ci.org/mleczakm/monolog-sentry-bundle.svg?branch=master)](https://travis-ci.org/mleczakm/monolog-sentry-bundle)
 [![Coverage Status](https://coveralls.io/repos/github/mleczakm/monolog-sentry-bundle/badge.svg?branch=master)](https://coveralls.io/github/mleczakm/monolog-sentry-bundle?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mleczakm/monolog-sentry-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mleczakm/monolog-sentry-bundle/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/539b5154-ad2a-4417-bbea-dc13a6f69c0c/mini.png)](https://insight.sensiolabs.com/projects/539b5154-ad2a-4417-bbea-dc13a6f69c0c)
+[![License](https://poser.pugx.org/dziki/monolog-sentry-bundle/license)](https://packagist.org/packages/dziki/monolog-sentry-bundle)
 
 Bundle for appending useful data to [Monolog](https://github.com/Seldaek/monolog) log records like username, 
 parsed user-agent header, host name, Symfony version, commit hash and a lot more - you can provide custom tags 
@@ -102,7 +104,7 @@ name of service implementing [ParserInterface](https://github.com/mleczakm/monol
 
 ## Hints
 
-- Hide your Sentry monolog handler behind `buffer` one to prevent low level messages notifications, but kept them in breadcrumbs:
+- Hide your Sentry monolog handler behind `buffer` one to prevent low level messages notifications, but keep them in breadcrumbs:
 
 ```yaml
 monolog:
@@ -129,12 +131,6 @@ monolog:
             release: '%env(APP_VERSION)%' # version tag or any release ID
 ```
 
-## Milestones to stable release
+## License
 
-- [x] POC
-- [x] custom tags
-- [x] unit tests
-- [x] breadcrumbs support
-- [x] cache adapter
-- [x] functional tests
-- [ ] valuable functional tests ;)
+MonologSentryBundle is released under the [MIT license](https://github.com/mleczakm/monolog-sentry-bundle/blob/master/LICENSE.md).
