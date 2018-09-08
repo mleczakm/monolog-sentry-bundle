@@ -19,12 +19,12 @@ class MonologHandlerOverridePassTest extends TestCase
     public function doNothingIfNoRavenHandlerServiceDefined(): void
     {
         $containerBuilder = new ContainerBuilder();
-        $expected = spl_object_hash($containerBuilder);
+        $expected = \spl_object_hash($containerBuilder);
 
         $monologOverridePass = new MonologHandlerOverridePass();
         $monologOverridePass->process($containerBuilder);
 
-        self::assertEquals($expected, spl_object_hash($containerBuilder));
+        self::assertEquals($expected, \spl_object_hash($containerBuilder));
     }
 
     /**
