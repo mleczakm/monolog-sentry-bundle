@@ -17,11 +17,15 @@ Install bundle with `composer require dziki/monolog-sentry-bundle` command.
 
 ## TL;DR
 
+Comparison of exactly same error handled by default [monolog raven handler](#hints) with `sentry/sentry` package client with bundle
+turned off and on with some [basic config](#full-basic-config). As you can see - after turning bundle on - browser, user, 
+breadcrumbs and some valuable tags showed up, making your error logs much easier to read.
+
 ### Before
-![screenshot_20180808_004201](https://user-images.githubusercontent.com/3474636/43806409-207069fa-9aa4-11e8-8483-9e4b511c1457.png)
+![before](https://user-images.githubusercontent.com/3474636/45269343-d8c4d700-b48c-11e8-89b3-8a6a0e602c12.png)
 
 ## After
-![screenshot_20180808_002716](https://user-images.githubusercontent.com/3474636/43806415-2a844c0e-9aa4-11e8-81bb-02a7fd6594d1.png)
+![after](https://user-images.githubusercontent.com/3474636/45269349-e1b5a880-b48c-11e8-9143-53058e67e757.png)
 
 ## Enable the Bundle
 
@@ -60,7 +64,7 @@ Default configuration looks like that:
 ```yaml
 monolog_sentry:
     user_context: true # append username from TokenStorage to log
-    user_agent_parser: phpuseragent # parser browser name, version and platform from user agent
+    user_agent_parser: phpuseragent # parse browser name, version and platform from user agent
 ``` 
 
 You can turn off logging user context and/or parsing browser by setting any of this values to `false`. Parsing user agent
@@ -84,8 +88,20 @@ useful [Sentry environment](https://docs.sentry.io/learn/environments/) and serv
 
 ```yaml
 monolog_sentry:
-    user_context: true
-    user_agent_parser: phpuseragent
+    ...
+    tags:
+        symfony_version: !php/const Symfony\Component\HttpKernel\Kernel::VERSION # useful for regression check
+        commit: '%env(APP_REVISION)%' # for example hash of commit, set your own environment variable or parameter
+        environment: '%env(SERVER_NAME)%' # Sentry environment discriminator, much more useful than default `prod`
+```
+
+## Full basic config
+
+```yaml
+monolog_sentry:
+    user_context: true # append username from TokenStorage to log
+    user_agent_parser: phpuseragent # parse browser name, version and platform from user agent
+    cache: cache.app.simple # service implementing "Psr\SimpleCache\CacheInterface" interface, since SF 4.1
     tags:
         symfony_version: !php/const Symfony\Component\HttpKernel\Kernel::VERSION # useful for regression check
         commit: '%env(APP_REVISION)%' # for example hash of commit, set your own environment variable or parameter
@@ -94,7 +110,7 @@ monolog_sentry:
 
 ## User Agent parser
 
-Bundle support two parser:
+Bundle supports two parsers:
 - `phpuseragent` ([github.com/donatj/PhpUserAgent](https://github.com/donatj/PhpUserAgent)) as default, no config needed
 - `native` ([get_browser()](https://php.net/manual/en/function.get-browser.php)) - browscap configuration setting in php.ini 
 must point to the correct location of the [browscap.ini](https://browscap.org/)
@@ -104,7 +120,7 @@ name of service implementing [ParserInterface](https://github.com/mleczakm/monol
 
 ## Hints
 
-- Hide your Sentry monolog handler behind `buffer` one to prevent low level messages notifications, but keep them in breadcrumbs:
+- Hide your Sentry monolog handler behind `buffer` one to prevent low level messages notifications, but keep them as breadcrumbs:
 
 ```yaml
 monolog:
@@ -119,9 +135,12 @@ monolog:
         sentry:
             type:    raven
             dsn:     '%env(SENTRY_DSN)%'
-            level:   info # logs which will show as breadcrumbs in Sentry issue 
+            level:   info # logs which will show as breadcrumbs in Sentry issue
+            release: 1.0.0
 ```
+
 - Add Sentry handler `release` option to monolog config for easy regression seeking:
+
 ```yaml
 monolog:
     handlers:
