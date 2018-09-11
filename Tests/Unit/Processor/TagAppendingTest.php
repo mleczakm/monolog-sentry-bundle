@@ -7,6 +7,9 @@ namespace Dziki\MonologSentryBundle\Tests\Unit\Processor;
 use Dziki\MonologSentryBundle\Processor\TagAppending;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\Processor\TagAppending
+ */
 class TagAppendingTest extends TestCase
 {
     /**

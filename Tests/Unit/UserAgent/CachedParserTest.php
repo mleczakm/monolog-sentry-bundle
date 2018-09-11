@@ -10,6 +10,11 @@ use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 use PHPUnit\Framework\TestCase;
 use Psr\SimpleCache\CacheInterface;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\UserAgent\CachedParser
+ *
+ * @uses \Dziki\MonologSentryBundle\UserAgent\UserAgent
+ */
 class CachedParserTest extends TestCase
 {
     /**

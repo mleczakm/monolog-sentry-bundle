@@ -7,6 +7,11 @@ namespace Dziki\MonologSentryBundle\Tests\Unit\UserAgent;
 use Dziki\MonologSentryBundle\UserAgent\NativeParser;
 use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\UserAgent\NativeParser
+ *
+ * @uses \Dziki\MonologSentryBundle\UserAgent\UserAgent
+ */
 class NativeParserTest extends AbstractParserTest
 {
     public function validUserAgentsDataProvider(): array

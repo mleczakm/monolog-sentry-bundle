@@ -7,11 +7,13 @@ namespace Dziki\MonologSentryBundle\Tests\Functional;
 use Dziki\MonologSentryBundle\DependencyInjection\MonologSentryExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
+
 class MonologSentryExtensionTest extends AbstractExtensionTestCase
 {
     /**
      * @test
      * @covers \Dziki\MonologSentryBundle\DependencyInjection\MonologSentryExtension::load
+     * @uses \Dziki\MonologSentryBundle\DependencyInjection\Configuration
      */
     public function checkIfServicesDefinedAccordingToConfig(): void
     {

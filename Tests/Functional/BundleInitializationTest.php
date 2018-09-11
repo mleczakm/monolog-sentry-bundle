@@ -23,6 +23,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\MonologSentryBundle
+ * @covers \Dziki\MonologSentryBundle\DependencyInjection\Configuration
+ * @covers \Dziki\MonologSentryBundle\DependencyInjection\MonologSentryExtension
+ *
+ * @uses \Dziki\MonologSentryBundle\Handler\Raven
+ * @uses \Dziki\MonologSentryBundle\DependencyInjection\Compiler\MonologHandlerOverridePass
+ * @uses \Dziki\MonologSentryBundle\Processor\TagAppending
+ * @uses \Dziki\MonologSentryBundle\UserAgent\PhpUserAgentParser
+ * @uses \Dziki\MonologSentryBundle\UserAgent\UserAgent
+ * @uses \Dziki\MonologSentryBundle\SubscribedProcessor\BrowserDataAppending
+ * @uses \Dziki\MonologSentryBundle\SubscribedProcessor\UserDataAppending
+ * @uses \Dziki\MonologSentryBundle\UserAgent\CachedParser
+ */
 class BundleInitializationTest extends BaseBundleTestCase
 {
     /**

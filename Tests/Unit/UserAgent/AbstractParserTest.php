@@ -8,6 +8,9 @@ use Dziki\MonologSentryBundle\UserAgent\ParserInterface;
 use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\Tests\Unit\UserAgent\AbstractParser
+ */
 abstract class AbstractParserTest extends TestCase
 {
     /** @var ParserInterface */
