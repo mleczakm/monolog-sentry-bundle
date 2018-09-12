@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Dziki\MonologSentryBundle\Tests\Functional;
 
+use Dziki\MonologSentryBundle\Handler\Raven;
 use Dziki\MonologSentryBundle\MonologSentryBundle;
 use Dziki\MonologSentryBundle\Processor\TagAppending;
 use Dziki\MonologSentryBundle\SubscribedProcessor\BrowserDataAppending;
 use Dziki\MonologSentryBundle\SubscribedProcessor\UserDataAppending;
 use Dziki\MonologSentryBundle\UserAgent\CachedParser;
 use Dziki\MonologSentryBundle\UserAgent\NativeParser;
-use Dziki\MonologSentryBundle\UserAgent\ParserInterface;
 use Dziki\MonologSentryBundle\UserAgent\PhpUserAgentParser;
-use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 use Nyholm\BundleTest\AppKernel;
 use Nyholm\BundleTest\BaseBundleTestCase;
 use Nyholm\BundleTest\CompilerPass\PublicServicePass;
@@ -65,7 +64,7 @@ class BundleInitializationTest extends BaseBundleTestCase
         $kernel->addBundle(SecurityBundle::class);
         $kernel->addBundle(MonologBundle::class);
 
-        $kernel->addConfigFile(__DIR__ . DIRECTORY_SEPARATOR . $configFilePath);
+        $kernel->addConfigFile(__DIR__.DIRECTORY_SEPARATOR.$configFilePath);
 
         // Make all services public
         $kernel->addCompilerPasses([new PublicServicePass()]);
@@ -112,7 +111,7 @@ class BundleInitializationTest extends BaseBundleTestCase
         // you may need to use a different token class depending on your application.
         // for example, when using Guard authentication you must instantiate PostAuthenticationGuardToken
         $token = new UsernamePasswordToken('test', 'test', $firewallName, ['ROLE_ADMIN']);
-        $session->set('_security_' . $firewallContext, serialize($token));
+        $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();
     }
 
@@ -153,6 +152,18 @@ class BundleInitializationTest extends BaseBundleTestCase
 
         $nativeParser = $kernel->getContainer()->get(NativeParser::class);
         $this->assertInstanceOf(NativeParser::class, $nativeParser);
+    }
+
+    /**
+     * @test
+     */
+    public function checkCompilerPassReplaceRavenHandler(): void
+    {
+        $kernel = $this->prepareKernel('config.yaml');
+
+        $ravenHandler = $kernel->getContainer()->get('monolog.handler.sentry');
+
+        $this->assertInstanceOf(Raven::class, $ravenHandler);
     }
 
     protected function getBundleClass(): string

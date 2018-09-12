@@ -32,6 +32,7 @@ class MonologSentryExtension extends Extension
                 'dziki.monolog_sentry_bundle.user_data_appending_subscribed_processor',
                 new Definition(UserDataAppending::class, [new Reference(TokenStorageInterface::class)])
             )
+                      ->setPrivate(true)
                       ->addTag('kernel.event_subscriber')
                       ->addTag('monolog.processor')
             ;
@@ -66,7 +67,8 @@ class MonologSentryExtension extends Extension
                             new Reference($parserClass),
                         ]
                     )
-                );
+                )->setPrivate(true)
+                ;
 
                 $parserClass = CachedParser::class;
             }
@@ -83,7 +85,7 @@ class MonologSentryExtension extends Extension
 
         if (\is_array($configs['tags'])) {
             foreach ($configs['tags'] as $tag => ['value' => $value, 'name' => $name]) {
-                $tagName = $name ?: (string) $tag;
+                $tagName = $name ?: $tag;
                 $container->setDefinition(
                     "dziki.monolog_sentry_bundle.{$tag}_appending_processor",
                     new Definition(

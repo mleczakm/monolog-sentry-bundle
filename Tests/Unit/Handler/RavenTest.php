@@ -56,19 +56,20 @@ class RavenTest extends TestCase
     }
 
     /**
-     * @param int $level
+     * @param int    $level
      * @param string $message
-     * @param array $context
-     *
+     * @param array  $context
      * @param string $channel
-     * @param array $extra
+     * @param array  $extra
+     *
      * @return array Record
+     *
      * @throws \Exception
      */
     protected function getRecord($level = Logger::WARNING, $message = 'test', array $context = [], $channel = 'test', $extra = []): array
     {
         return [
-            'message' => (string)$message,
+            'message' => (string) $message,
             'context' => $context,
             'level' => $level,
             'level_name' => Logger::getLevelName($level),
@@ -196,7 +197,7 @@ class RavenTest extends TestCase
             $handler->handle($record);
         }
 
-        $this->assertEquals('[test] ' . $record['message'], $ravenClient->lastData['message']);
+        $this->assertEquals('[test] '.$record['message'], $ravenClient->lastData['message']);
     }
 
     private function methodThatThrowsAnException()

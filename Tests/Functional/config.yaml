@@ -32,6 +32,11 @@ monolog_sentry:
     symfony_version: !php/const Symfony\Component\HttpKernel\Kernel::VERSION
     commit: '37bf8629120469e164477a8d5046967bf3235988'
     environment: 'test'
+    1: '2'
+    'true': 'false'
+    real tag name (empty name will be ignored):
+      name:
+      value: 'non empty value'
 
 monolog:
   handlers:
