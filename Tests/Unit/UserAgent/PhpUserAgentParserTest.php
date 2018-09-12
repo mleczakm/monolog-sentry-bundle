@@ -7,6 +7,11 @@ namespace Dziki\MonologSentryBundle\Tests\Unit\UserAgent;
 use Dziki\MonologSentryBundle\UserAgent\PhpUserAgentParser;
 use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\UserAgent\PhpUserAgentParser
+ *
+ * @uses \Dziki\MonologSentryBundle\UserAgent\UserAgent
+ */
 class PhpUserAgentParserTest extends AbstractParserTest
 {
     public function validUserAgentsDataProvider(): array

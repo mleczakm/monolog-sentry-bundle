@@ -12,6 +12,9 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\SubscribedProcessor\UserDataAppending
+ */
 class UserDataAppendingTest extends TestCase
 {
     /**

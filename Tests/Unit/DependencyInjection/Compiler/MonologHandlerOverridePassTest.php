@@ -11,6 +11,9 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\DependencyInjection\Compiler\MonologHandlerOverridePass
+ */
 class MonologHandlerOverridePassTest extends TestCase
 {
     /**

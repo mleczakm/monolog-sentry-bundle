@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\SubscribedProcessor\BrowserDataAppending
+ *
+ * @uses \Dziki\MonologSentryBundle\UserAgent\UserAgent
+ */
 class BrowserDataAppendingTest extends TestCase
 {
     /**

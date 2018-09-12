@@ -11,6 +11,9 @@ use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Raven_Client;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\Handler\Raven
+ */
 class RavenTest extends TestCase
 {
     public function setUp()

@@ -7,6 +7,9 @@ namespace Dziki\MonologSentryBundle\Tests\Unit\UserAgent;
 use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Dziki\MonologSentryBundle\UserAgent\UserAgent
+ */
 class UserAgentTest extends TestCase
 {
     /**
