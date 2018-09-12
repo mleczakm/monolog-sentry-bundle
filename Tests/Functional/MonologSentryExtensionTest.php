@@ -14,6 +14,7 @@ use Dziki\MonologSentryBundle\UserAgent\PhpUserAgentParser;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Symfony\Component\Cache\Simple\ArrayCache;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -23,7 +24,7 @@ class MonologSentryExtensionTest extends AbstractExtensionTestCase
      * @test
      * @covers \Dziki\MonologSentryBundle\DependencyInjection\MonologSentryExtension::load
      *
-     * @uses \Dziki\MonologSentryBundle\DependencyInjection\Configuration
+     * @uses   \Dziki\MonologSentryBundle\DependencyInjection\Configuration
      */
     public function checkIfServicesDefinedAndPrivate(): void
     {
@@ -71,7 +72,10 @@ class MonologSentryExtensionTest extends AbstractExtensionTestCase
             $this->assertContainerBuilderHasService($defaultService, $data['class']);
             try {
                 $service = $this->container->get($defaultService);
-                $this->fail(sprintf('Service "%s" (%s) should be private', \get_class($service), $defaultService));
+
+                if (Kernel::MAJOR_VERSION >= 4) {
+                    $this->fail(sprintf('Service "%s" (%s) should be private', \get_class($service), $defaultService));
+                }
             } catch (ServiceNotFoundException $exception) {
                 $this->assertContains($defaultService, $exception->getMessage());
             }
@@ -82,7 +86,7 @@ class MonologSentryExtensionTest extends AbstractExtensionTestCase
      * @test
      * @covers \Dziki\MonologSentryBundle\DependencyInjection\MonologSentryExtension::load
      *
-     * @uses \Dziki\MonologSentryBundle\DependencyInjection\Configuration
+     * @uses   \Dziki\MonologSentryBundle\DependencyInjection\Configuration
      */
     public function checkIfNativeUserAgentParserServiceDefinedAndPrivate(): void
     {
@@ -113,7 +117,7 @@ class MonologSentryExtensionTest extends AbstractExtensionTestCase
      * @test
      * @covers \Dziki\MonologSentryBundle\DependencyInjection\MonologSentryExtension::load
      *
-     * @uses \Dziki\MonologSentryBundle\DependencyInjection\Configuration
+     * @uses   \Dziki\MonologSentryBundle\DependencyInjection\Configuration
      */
     public function checkIfCachedParserServiceDefinedAndPrivate(): void
     {
