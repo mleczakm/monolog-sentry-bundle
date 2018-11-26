@@ -83,10 +83,10 @@ class Raven extends RavenHandler
                     $crumb['data']['route'] = $log['context']['route_parameters']['_route'];
                     $crumb['data']['controller'] = $log['context']['route_parameters']['_controller'];
                     $crumb['data']['uri'] = $log['context']['request_uri'];
-                }
-
-                if ('security' === $log['channel'] && array_key_exists('user', $log['context'])) {
+                } elseif ('security' === $log['channel'] && array_key_exists('user', $log['context'])) {
                     $crumb['data']['user'] = $log['context']['user']['username'];
+                } else {
+                    $crumb['data'] = $log['context'];
                 }
             }
 
