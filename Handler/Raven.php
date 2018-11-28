@@ -167,6 +167,8 @@ class Raven extends RavenHandler
             $this->ravenClient->captureMessage($record['formatted'], [], $options);
         }
 
+        $this->ravenClient->breadcrumbs->reset();
+
         if (false !== $previousUserContext) {
             $this->ravenClient->user_context($previousUserContext);
         }
