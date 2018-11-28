@@ -27,7 +27,7 @@
     "sentry/sentry": "^1.9.1"
   },
   "require-dev": {
-    "symfony/phpunit-bridge": "^3.4|^4.0",
+    "symfony/phpunit-bridge": "^4.1.8",
     "friendsofphp/php-cs-fixer": "^2.12",
     "nyholm/symfony-bundle-test": "^1.4",
     "matthiasnoback/symfony-dependency-injection-test": "^3.0"
