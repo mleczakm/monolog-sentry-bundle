@@ -120,22 +120,20 @@ name of service implementing [ParserInterface](https://github.com/mleczakm/monol
 
 ## Hints
 
-- Hide your Sentry monolog handler behind `buffer` one to prevent low level messages notifications, but keep them as breadcrumbs:
+- Add `stop_buffering: false` to your `fingers_crossed` handler to keep low level messages notifications as breadcrumbs:
 
 ```yaml
 monolog:
     handlers:
         main:
-            type:         fingers_crossed
-            action_level: error
-            handler:      buffered
-        buffered:
-            type:    buffer
-            handler: sentry
+            type:           fingers_crossed
+            action_level:   error
+            handler:        buffered
+            stop_buffering: false
         sentry:
             type:    raven
             dsn:     '%env(SENTRY_DSN)%'
-            level:   info # logs which will show as breadcrumbs in Sentry issue
+            level:   info # logs which will be shown as breadcrumbs in Sentry issue
             release: 1.0.0
 ```
 
