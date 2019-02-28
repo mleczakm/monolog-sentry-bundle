@@ -6,6 +6,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mleczakm/monolog-sentry-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mleczakm/monolog-sentry-bundle/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/539b5154-ad2a-4417-bbea-dc13a6f69c0c/mini.png)](https://insight.sensiolabs.com/projects/539b5154-ad2a-4417-bbea-dc13a6f69c0c)
 [![License](https://poser.pugx.org/dziki/monolog-sentry-bundle/license)](https://packagist.org/packages/dziki/monolog-sentry-bundle)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmleczakm%2Fmonolog-sentry-bundle.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmleczakm%2Fmonolog-sentry-bundle?ref=badge_shield)
 
 Bundle for appending useful data to [Monolog](https://github.com/Seldaek/monolog) log records like username, 
 parsed user-agent header, host name, Symfony version, commit hash and a lot more - you can provide custom tags 
@@ -151,3 +152,6 @@ monolog:
 ## License
 
 MonologSentryBundle is released under the [MIT license](https://github.com/mleczakm/monolog-sentry-bundle/blob/master/LICENSE.md).
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmleczakm%2Fmonolog-sentry-bundle.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmleczakm%2Fmonolog-sentry-bundle?ref=badge_large)
