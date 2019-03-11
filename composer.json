@@ -24,7 +24,6 @@
     "symfony/dependency-injection": "^3.4|^4.1",
     "symfony/monolog-bundle": "^3.3",
     "symfony/monolog-bridge": "^3.4|^4.1",
-    "symfony/security-bundle": "^3.4|^4.1",
     "sentry/sentry": "^1.9.1"
   },
   "require-dev": {
@@ -32,6 +31,10 @@
     "friendsofphp/php-cs-fixer": "^2.12",
     "nyholm/symfony-bundle-test": "^1.4",
     "matthiasnoback/symfony-dependency-injection-test": "^3.0"
+  },
+  "suggest": {
+    "donatj/phpuseragentparser": "Basic package for parsing User-Agent header, faster than native browscap",
+    "symfony/security-bundle": "Required for current user data appending to logs"
   },
   "autoload": {
     "psr-4": {
