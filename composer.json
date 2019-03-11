@@ -24,6 +24,9 @@
     "symfony/monolog-bridge": "^3.4|^4.1",
     "sentry/sentry": "^1.9.1"
   },
+  "conflict": {
+    "donatj/phpuseragentparser": "<0.11"
+  },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.1.8",
     "friendsofphp/php-cs-fixer": "^2.12",
