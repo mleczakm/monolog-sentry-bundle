@@ -60,16 +60,17 @@ class AppKernel extends Kernel
 
 ## Configuration
 
-Default configuration looks like that:
+Default configuration does nothing, You need to adjust it manually according to Your needs:
 
 ```yaml
 monolog_sentry:
-    user_context: true # append username from TokenStorage to log
-    user_agent_parser: phpuseragent # parse browser name, version and platform from user agent
+    user_context: false # append username from TokenStorage to log
+    user_agent_parser: false # set to 'phpuseragent' to parse browser name, version and platform from user agent
 ``` 
 
-You can turn off logging user context and/or parsing browser by setting any of this values to `false`. Parsing user agent
-takes about 0.1ms (up to 1ms using native parser) for every request, so...
+You can turn on logging user context by setting value to `true` - it requires `symfony/security-bundle` package.
+`user_agent_parser` requires valid user agent header parser service as value. 
+Parsing user agent takes about 0.1ms (up to 1ms using native parser) for every request, so...
 
 ## Caching once parsed User Agents
 
