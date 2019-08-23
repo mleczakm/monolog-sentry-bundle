@@ -12,7 +12,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('monolog_sentry');
-        $rootNode = $treeBuilder->getRootNode();
+        // Forward compatibility with Symfony 4.2.
+        // @see https://symfony.com/blog/new-in-symfony-4-2-important-deprecations
+        $rootNode = method_exists($treeBuilder, 'getRootNode')
+            ? $treeBuilder->getRootNode()
+            : $treeBuilder->root('monolog_sentry');
+
         // @formatter:off
         $rootNode
             ->children()
