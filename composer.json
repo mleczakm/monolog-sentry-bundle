@@ -20,6 +20,7 @@
   "require": {
     "php": ">=7.1",
     "donatj/phpuseragentparser": "^0.10.0",
+    "psr/simple-cache": "^1.0",
     "symfony/dependency-injection": "^3.4|^4.1",
     "symfony/monolog-bundle": "^3.3",
     "symfony/monolog-bridge": "^3.4|^4.1",
