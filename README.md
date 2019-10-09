@@ -65,7 +65,8 @@ Default configuration does nothing, You need to adjust it manually according to 
 ```yaml
 monolog_sentry:
     user_context: false # append username from TokenStorage to log
-    user_agent_parser: false # set to 'phpuseragent' to parse browser name, version and platform from user agent
+    user_agent_parser: false # install donatj/phpuseragentparser package
+                             # and set to 'phpuseragent' to parse browser name, version and platform from user agent
 ``` 
 
 You can turn on logging user context by setting value to `true` - it requires `symfony/security-bundle` package.
@@ -113,7 +114,7 @@ monolog_sentry:
 ## User Agent parser
 
 Bundle supports two parsers:
-- `phpuseragent` ([github.com/donatj/PhpUserAgent](https://github.com/donatj/PhpUserAgent)) as default, no config needed
+- `phpuseragent` ([github.com/donatj/PhpUserAgent](https://github.com/donatj/PhpUserAgent)) - as suggested package
 - `native` ([get_browser()](https://php.net/manual/en/function.get-browser.php)) - browscap configuration setting in php.ini 
 must point to the correct location of the [browscap.ini](https://browscap.org/)
 
