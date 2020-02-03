@@ -14,20 +14,19 @@ env:
 matrix:
     fast_finish: true
     include:
-        - php: 7.1
-        - php: 7.2
-          env: COVERAGE=true BROWSCAP=true PHPUNIT_FLAGS="-v --coverage-text --coverage-clover coverage.xml"
         - php: 7.3
         - php: 7.3
           env: COVERAGE=true BROWSCAP=true PHPUNIT_FLAGS="-v --coverage-text --coverage-clover coverage.xml"
-
+        - php: 7.4
+        - php: 7.4
+          env: COVERAGE=true BROWSCAP=true PHPUNIT_FLAGS="-v --coverage-text --coverage-clover coverage.xml"
           # Test LTS versions. This makes sure we do not use Symfony packages with version greater
           # than 2 or 3 respectively. Read more at https://github.com/symfony/lts
         - php: 7.2
           env: DEPENDENCIES="symfony/lts:^3"
 
           # Latest commit to master
-        - php: 7.3
+        - php: 7.4
           env: STABILITY="dev"
 
     allow_failures:
