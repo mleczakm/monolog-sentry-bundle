@@ -63,7 +63,8 @@ class Raven extends RavenHandler
                 }
 
                 return $highest;
-            }
+            },
+            reset($records)
         );
 
         foreach ($records as $r) {
