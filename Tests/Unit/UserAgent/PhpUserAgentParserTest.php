@@ -45,7 +45,7 @@ class PhpUserAgentParserTest extends AbstractParserTest
             ];
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!function_exists('parse_user_agent')) {
             $this->markTestSkipped(

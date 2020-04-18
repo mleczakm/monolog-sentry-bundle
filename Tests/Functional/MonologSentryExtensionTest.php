@@ -144,7 +144,7 @@ class MonologSentryExtensionTest extends AbstractExtensionTestCase
         $this->assertServicesDefinedAndPrivate($defaultServices);
     }
 
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new MonologSentryExtension(),

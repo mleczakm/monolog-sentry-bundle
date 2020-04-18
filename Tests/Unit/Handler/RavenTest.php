@@ -16,7 +16,7 @@ use Raven_Client;
  */
 class RavenTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('Raven_Client')) {
             $this->markTestSkipped('sentry/sentry not installed');

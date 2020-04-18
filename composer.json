@@ -33,7 +33,7 @@
     "symfony/phpunit-bridge": "^4.1.8",
     "friendsofphp/php-cs-fixer": "^2.12",
     "nyholm/symfony-bundle-test": "^1.4",
-    "matthiasnoback/symfony-dependency-injection-test": "^3.0",
+    "matthiasnoback/symfony-dependency-injection-test": "dev-master",
     "donatj/phpuseragentparser": "^0.11",
     "symfony/security-bundle": "^3.4|^4.1.12|^5.0"
   },

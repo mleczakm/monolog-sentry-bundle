@@ -41,7 +41,7 @@ class NativeParserTest extends AbstractParserTest
             ];
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!ini_get('browscap')) {
             $this->markTestSkipped(
