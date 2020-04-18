@@ -45,14 +45,7 @@ before_install:
       fi
 
 install:
-    - composer update --prefer-dist --no-interaction
-    - |
-      if ! [ -v "$DEPENDENCIES" ]; then
-        composer require symfony/security-bundle:^3
-      else
-        composer require symfony/security-bundle
-      fi;
-    - composer require donatj/phpuseragentparser --prefer-dist --no-interaction
+    - composer install --prefer-dist --no-interaction
     - ./vendor/bin/simple-phpunit install
 
 script:
