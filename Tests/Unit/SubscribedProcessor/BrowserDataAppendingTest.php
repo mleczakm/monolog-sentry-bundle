@@ -11,13 +11,14 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * @covers \Dziki\MonologSentryBundle\SubscribedProcessor\BrowserDataAppending
  *
- * @uses \Dziki\MonologSentryBundle\UserAgent\UserAgent
+ * @uses   \Dziki\MonologSentryBundle\UserAgent\UserAgent
  */
 class BrowserDataAppendingTest extends TestCase
 {
@@ -53,21 +54,14 @@ class BrowserDataAppendingTest extends TestCase
         $this->parser
             ->expects($this->once())
             ->method('parse')
-            ->willReturn(UserAgent::create('Firefox', '62.0', 'Linux'))
-        ;
+            ->willReturn(UserAgent::create('Firefox', '62.0', 'Linux'));
 
         $headersBag = new HeaderBag(
             ['User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64; rv:62.0) Gecko/20100101 Firefox/62.0']
         );
         $request = $this->createMock(Request::class);
         $request->headers = $headersBag;
-        /**
-         * @var GetResponseEvent|MockObject
-         */
-        $event = $this->createMock(GetResponseEvent::class);
-        $event->method('getRequest')
-              ->willReturn($request)
-        ;
+        $event = new RequestEvent($this->createMock(Kernel::class), $request, null);
 
         $browserDataAppendingProcessor->onKernelRequest($event);
 

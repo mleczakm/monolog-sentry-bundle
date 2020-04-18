@@ -7,7 +7,7 @@ namespace Dziki\MonologSentryBundle\SubscribedProcessor;
 use Dziki\MonologSentryBundle\UserAgent\ParserInterface;
 use Dziki\MonologSentryBundle\UserAgent\UserAgent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class BrowserDataAppending implements EventSubscriberInterface
@@ -44,10 +44,10 @@ class BrowserDataAppending implements EventSubscriberInterface
         return $record;
     }
 
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         /** @var string $userAgent */
-        $userAgent = $event->getRequest()->headers->get('User-Agent', '', true);
+        $userAgent = $event->getRequest()->headers->get('User-Agent', '');
 
         $this->userAgent = $this->parser->parse($userAgent);
     }

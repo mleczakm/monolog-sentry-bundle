@@ -6,4 +6,8 @@ monolog_sentry:
 
 services:
   simple_array_cache:
-    class: 'Symfony\Component\Cache\Simple\ArrayCache'
+    class: 'Symfony\Component\Cache\Psr16Cache'
+    arguments:
+      - '@simple_array_symfony_cache'
+  simple_array_symfony_cache:
+    class: 'Symfony\Component\Cache\Adapter\ArrayAdapter'

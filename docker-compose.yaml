@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+    php:
+        user: "${DOCKER_COMPOSE_RUN_AS_USER:?You must define user:group for permissions handling}"
+        build: .
+        volumes:
+        - .:/app
+        - ~/.composer:/.composer
