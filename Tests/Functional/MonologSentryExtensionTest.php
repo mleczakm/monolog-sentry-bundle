@@ -12,7 +12,7 @@ use Dziki\MonologSentryBundle\UserAgent\CachedParser;
 use Dziki\MonologSentryBundle\UserAgent\NativeParser;
 use Dziki\MonologSentryBundle\UserAgent\PhpUserAgentParser;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Symfony\Component\Cache\Simple\ArrayCache;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -60,7 +60,7 @@ class MonologSentryExtensionTest extends AbstractExtensionTestCase
             ],
         ];
 
-        $this->registerService(TokenStorageInterface::class, new TokenStorage());
+        $this->registerService(TokenStorageInterface::class, TokenStorage::class);
         $this->compile();
 
         $this->assertServicesDefinedAndPrivate($defaultServices);
@@ -77,7 +77,7 @@ class MonologSentryExtensionTest extends AbstractExtensionTestCase
                     $this->fail(sprintf('Service "%s" (%s) should be private', \get_class($service), $defaultService));
                 }
             } catch (ServiceNotFoundException $exception) {
-                $this->assertContains($defaultService, $exception->getMessage());
+                $this->assertStringContainsString($defaultService, $exception->getMessage());
             }
         }
     }
@@ -138,13 +138,13 @@ class MonologSentryExtensionTest extends AbstractExtensionTestCase
             ],
         ];
 
-        $this->registerService('app.cache.simple', new ArrayCache());
+        $this->registerService('app.cache.simple', ArrayAdapter::class);
         $this->compile();
 
         $this->assertServicesDefinedAndPrivate($defaultServices);
     }
 
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new MonologSentryExtension(),

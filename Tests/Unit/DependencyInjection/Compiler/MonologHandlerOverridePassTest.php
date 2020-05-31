@@ -56,14 +56,14 @@ class MonologHandlerOverridePassTest extends TestCase
                 $this->assertSame(
                     Raven::class,
                     $containerBuilder
-                        ->getDefinition($id)
+                        ->getDefinition((string) $id)
                         ->getClass()
                 );
             } else {
                 $this->assertSame(
                     $class,
                     $containerBuilder
-                        ->getDefinition($id)
+                        ->getDefinition((string) $id)
                         ->getClass()
                 );
             }

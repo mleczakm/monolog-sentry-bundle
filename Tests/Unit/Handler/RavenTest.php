@@ -16,7 +16,7 @@ use Raven_Client;
  */
 class RavenTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('Raven_Client')) {
             $this->markTestSkipped('sentry/sentry not installed');
@@ -45,7 +45,7 @@ class RavenTest extends TestCase
         $handler->handle($record);
 
         $this->assertEquals($ravenClient::DEBUG, $ravenClient->lastData['level']);
-        $this->assertContains($record['message'], $ravenClient->lastData['message']);
+        $this->assertStringContainsString($record['message'], $ravenClient->lastData['message']);
     }
 
     protected function getHandler($ravenClient)
@@ -88,7 +88,7 @@ class RavenTest extends TestCase
         $handler->handle($record);
 
         $this->assertEquals($ravenClient::WARNING, $ravenClient->lastData['level']);
-        $this->assertContains($record['message'], $ravenClient->lastData['message']);
+        $this->assertStringContainsString($record['message'], $ravenClient->lastData['message']);
     }
 
     public function testTag()
@@ -181,7 +181,7 @@ class RavenTest extends TestCase
 
         // check to see if its reset
         $handler->handle($recordWithNoContext);
-        $this->assertInternalType('array', $ravenClient->context->user);
+        $this->assertIsArray($ravenClient->context->user);
         $this->assertSame('test_user_id', $ravenClient->context->user['id']);
     }
 
